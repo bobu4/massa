@@ -1,5 +1,6 @@
 #!/bin/bash
 cd massa/massa-client
+massa_wallet_address=$(./massa-client --cli true wallet_info | jq -r '.balances | keys[0]')
 while true
 do
 	balance=$(./massa-client --cli true wallet_info | jq -r '.balances[].final_ledger_data.balance')
