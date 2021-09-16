@@ -1,4 +1,7 @@
 #!/bin/bash
+sudo apt-get update
+sudo apt-get install xdotool -y
+tmux
 cd massa/massa-client
 while true
 do
@@ -18,4 +21,5 @@ do
 		sleep 1
 	done
 	printf "\n"
+	xdotool key ctrl+b d
 done
