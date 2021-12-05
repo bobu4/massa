@@ -1,9 +1,14 @@
 !#bin/bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
-wget -qO massa.zip https://gitlab.com/massalabs/massa/-/jobs/1566540813/artifacts/download
+wget -qO massa.zip https://github.com/massalabs/massa/releases/latest/download/release_linux.zip
 unzip massa.zip
 rm -rf massa.zip
+cp /root/backup/node_privkey.key $HOME/massa/massa-node/config
+cp /root/backup/wallet.dat $HOME/massa/massa-client
+rm -rf backup
+
+
 sudo tee <<EOF >/dev/null /etc/systemd/system/massad.service
 [Unit]
 Description=Massa Node
