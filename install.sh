@@ -1,7 +1,7 @@
 !#bin/bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
-wget -qO massa.zip https://github.com/massalabs/massa/releases/latest/download/release_linux.zip
+wget -qO massa.zip https://github.com/massalabs/massa/releases/download/TEST.6.5/release_linux.zip
 unzip massa.zip
 rm -rf massa.zip
 cp /root/backup/node_privkey.key $HOME/massa/massa-node/config
@@ -28,3 +28,8 @@ EOF
 sudo systemctl enable massad
 sudo systemctl daemon-reload
 sudo systemctl restart massad
+cd massa/massa-client ; ./massa-client node_add_staking_private_keys $(./massa-client wallet_info | grep 'Private key' | cut -d\    -f3) ; ./massa-client node_get_staking_addresses ; cd
+read -p 'Enter discord id, obtained in massa bot: ' discord
+cd massa/massa-client ; ./massa-client node_testnet_rewards_program_ownership_proof $(./massa-client wallet_info | grep 'Address' | cut -d\   -f2) $(discord)
+cd massa/massa-client ; ./massa-client buy_rolls $(./massa-client wallet_info | grep 'Address' | cut -d\   -f2) 1 0 ; cd
+cd massa/massa-client ; ./massa-client wallet_info ; cd
