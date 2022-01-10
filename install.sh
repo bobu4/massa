@@ -7,7 +7,7 @@ rm -rf massa.zip
 cp /root/backup/node_privkey.key $HOME/massa/massa-node/config
 cp /root/backup/wallet.dat $HOME/massa/massa-client
 rm -rf backup
-
+chmod +x $HOME/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/massad.service
 [Unit]
@@ -28,6 +28,7 @@ EOF
 sudo systemctl enable massad
 sudo systemctl daemon-reload
 sudo systemctl restart massad
+
 cd massa/massa-client ; ./massa-client node_add_staking_private_keys $(./massa-client wallet_info | grep 'Private key' | cut -d\    -f3) ; ./massa-client node_get_staking_addresses ; cd
 read -p 'Enter discord id, obtained in massa bot: ' discord
 cd massa/massa-client ; ./massa-client node_testnet_rewards_program_ownership_proof $(./massa-client wallet_info | grep 'Address' | cut -d\   -f2) $(discord)
