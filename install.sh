@@ -2,7 +2,7 @@
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
 wget -qO massa.zip https://github.com/massalabs/massa/releases/download/TEST.6.5/release_linux.zip
-unzip massa.zip
+unzip massa.zip -d $HOME/massa/
 rm -rf massa.zip
 cp /root/backup/node_privkey.key $HOME/massa/massa-node/config
 cp /root/backup/wallet.dat $HOME/massa/massa-client
