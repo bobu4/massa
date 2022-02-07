@@ -3,7 +3,7 @@ cd massa/massa-client
 staking_registered_address=$(./massa-client node_get_staking_addresses)
 staking_address=$(./massa-client wallet_info | grep 'Address' | cut -d\   -f2)
 candidate_rolls=$(./massa-client wallet_info | grep 'Candidate rolls' | cut -d\   -f3)
-warn_message_rolls=$(journalctl -u massad.service --since "12:00" | grep -e "roll sale")
+warn_message_rolls=$(journalctl -u massad.service --since "1 hour ago" | grep -e "roll sale")
 if [ "$staking_registered_address" = "$staking_address" ]; then
 echo "Node was registered"
 else
