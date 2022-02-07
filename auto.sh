@@ -1,4 +1,4 @@
-!#bin/bash
+#!/usr/bin/env bash
 cd massa/massa-client
 staking_registered_address=$(./massa-client node_get_staking_addresses)
 staking_address=$(./massa-client wallet_info | grep 'Address' | cut -d\   -f2)
