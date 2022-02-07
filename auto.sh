@@ -3,7 +3,7 @@ cd massa/massa-client
 staking_registered_address=$(./massa-client node_get_staking_addresses)
 staking_address=$(./massa-client wallet_info | grep 'Address' | cut -d\   -f2)
 candidate_rolls=$(./massa-client wallet_info | grep 'Candidate rolls' | cut -d\   -f3)
-warn_message_rolls=$(journalctl -u massad.service | grep -e "roll sale" --since "1 hour ago")
+warn_message_rolls=$(journalctl -u massad.service --since "12:00" | grep -e "roll sale")
 if [ "$staking_registered_address" = "$staking_address" ]; then
 echo "Node was registered"
 else
@@ -16,8 +16,12 @@ elif [ $candidate_rolls -lt "1" ]; then
 address=$(./massa-client wallet_info | grep 'Address' | cut -d\   -f2)
 ./massa-client buy_rolls $address 1 0
 fi
-if [[ $warn_message_rolls =~ "roll sale" -a $(echo "$(./massa-client wallet_info | grep 'Final balance' | cut -d\   -f3) > 99.99" | bc) -ne 0]]; then
+if [[ $warn_message_rolls =~ "roll sale" ]]
+then
+if [ $(echo "$(./massa-client wallet_info | grep 'Final balance' | cut -d\   -f3) > 99.99" | bc) -ne 0 ]
+then
 echo "Roll will be sell"
 address=$(./massa-client wallet_info | grep 'Address' | cut -d\   -f2)
 ./massa-client buy_rolls $address 1 0
+fi
 fi
