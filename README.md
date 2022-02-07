@@ -2,3 +2,4 @@ Monitoring + autobuy: wget https://raw.githubusercontent.com/bobu4/massa/main/ba
 Autoinstall: wget https://github.com/bobu4/massa/raw/main/patched_install.sh && chmod +x patched_install.sh && ./patched_install.sh
 Install: wget https://raw.githubusercontent.com/bobu4/massa/main/install.sh && chmod +x install.sh && ./install.sh
 Massa: wget https://raw.githubusercontent.com/bobu4/massa/main/massa.sh && chmod +x massa.sh && ./massa.sh
+Test: wget https://raw.githubusercontent.com/bobu4/massa/main/auto.sh && chmod +x auto.sh && ./auto.sh
