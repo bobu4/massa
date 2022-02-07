@@ -13,4 +13,3 @@ echo "More than 0"
 elif [ $candidate_rolls -lt "1" ]; then
 address=$(./massa-client wallet_info | grep 'Address' | cut -d\   -f2)
 ./massa-client buy_rolls $address 1 0
-fi
