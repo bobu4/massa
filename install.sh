@@ -1,4 +1,4 @@
-!#bin/bash
+#!/usr/bin/env bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
 wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.7.0/massa_TEST.7.0_release_linux.tar.gz
