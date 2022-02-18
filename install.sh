@@ -29,6 +29,7 @@ sudo systemctl enable massad
 sudo systemctl daemon-reload
 sudo systemctl restart massad
 cd massa/massa-client
+sleep 10
 ./massa-client node_add_staking_private_keys $(./massa-client wallet_info | grep 'Private key' | cut -d\    -f3) ; ./massa-client node_get_staking_addresses
 read -p 'Enter discord id, obtained in massa bot: ' discord
 ./massa-client node_testnet_rewards_program_ownership_proof $(./massa-client wallet_info | grep 'Address' | cut -d\   -f2) $discord
