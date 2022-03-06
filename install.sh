@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.7.0/massa_TEST.7.0_release_linux.tar.gz
+mkdir backup
+cp $HOME/massa/massa-node/config/node_privkey.key $HOME/backup
+cp $HOME/massa/massa-client/wallet.dat $HOME/backup
+rm -rf massa
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.8.0/massa_TEST.8.0_release_linux.tar.gz
 tar -xvf $HOME/massa.tar.gz
 rm -rf $HOME/massa.tar.gz
 cp $HOME/backup/node_privkey.key $HOME/massa/massa-node/config
 cp $HOME/backup/wallet.dat $HOME/massa/massa-client
-rm -rf backup
 chmod +x $HOME/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/massad.service
