@@ -7,6 +7,8 @@ rm -rf $HOME/massa.tar.gz
 cp $HOME/backup/node_privkey.key $HOME/massa/massa-node/config
 cp $HOME/backup/wallet.dat $HOME/massa/massa-client
 chmod +x $HOME/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
+bootstrap_list=`wget -qO- https://raw.githubusercontent.com/SecorD0/Massa/main/bootstrap_list.txt`;
+perl -i -0pe 's/bootstrap_list = \[\n.*\[.*].*\n.*\[.*].*\n.*\[.*].*\n.*\[.*].*\n.*]\n.*# \[optionnal]/'"$bootstrap_list"'\n    # \[optionnal]/' $HOME/massa/massa-node/base_config/config.toml
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/massad.service
 [Unit]
