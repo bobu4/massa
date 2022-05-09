@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.9.2/massa_TEST.9.2_release_linux.tar.gz
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.10.0/massa_TEST.10.0_release_linux.tar.gz
 tar -xvf $HOME/massa.tar.gz
 rm -rf $HOME/massa.tar.gz
 read -p 'Enter ip from previous server: ' ip
