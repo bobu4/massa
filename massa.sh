@@ -2,7 +2,7 @@
 function install {
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
-wget -qO massa.zip https://github.com/massalabs/massa/releases/download/TEST.6.5/release_linux.zip
+wget -qO massa.zip https://github.com/massalabs/massa/releases/download/TEST.11.0/massa_TEST.11.0_release_linux.tar.gz
 unzip massa.zip -d $HOME/massa/
 rm -rf massa.zip
 cp $HOME/backup/node_privkey.key $HOME/massa/massa-node/config
