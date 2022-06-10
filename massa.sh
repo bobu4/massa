@@ -53,6 +53,7 @@ cp /root/backup/wallet.dat $HOME/massa/massa-client
 rm -rf backup
 sudo systemctl start massad
 cd massa/massa-client
+sleep 10
 ./massa-client node_add_staking_private_keys $(./massa-client wallet_info | grep 'Private key' | cut -d\    -f3) ; ./massa-client node_get_staking_addresses
 read -p 'Enter discord id, obtained in massa bot: ' discord
 signature=$(./massa-client node_testnet_rewards_program_ownership_proof $(./massa-client wallet_info | grep 'Address' | cut -d\   -f2) $discord)
