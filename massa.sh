@@ -1,4 +1,4 @@
-!#bin/bash
+#!/usr/bin/env bash
 function install {
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
