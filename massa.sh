@@ -44,7 +44,7 @@ mkdir backup
 cp $HOME/massa/massa-node/config/node_privkey.key $HOME/backup/node_privkey.key
 cp $HOME/massa/massa-client/wallet.dat $HOME/backup/wallet.dat
 rm -rf massa
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.11.2/massa_TEST.11.2_release_linux.tar.gz
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.11.3/massa_TEST.11.3_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
 chmod +x $HOME/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
