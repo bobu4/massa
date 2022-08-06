@@ -7,7 +7,7 @@ rm -rf massa.tar.gz
 chmod +x $HOME/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
 read -sp 'Enter the password for your massa wallet: ' passwd
 sed -i "/ passwd=/d" $HOME/.bash_profile
-echo 'export passwd="$passwd"' >> $HOME/.bash_profile
+echo "export passwd=\"${passwd}\"" >> $HOME/.bash_profile
 . <(wget -qO- https://raw.githubusercontent.com/SecorD0/Massa/main/multi_tool.sh) \
 -rb
 
