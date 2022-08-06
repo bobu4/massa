@@ -31,6 +31,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable massad
 sudo systemctl restart massad
 
+sleep 10
 cd massa/massa-client
 ./massa-client -p $passwd wallet_generate_secret_key
 ./massa-client -p $passwd node_add_staking_secret_keys $(./massa-client -p $passwd wallet_info | grep 'Secret key' | cut -d\   -f3) ; ./massa-client -p $passwd node_get_staking_addresses
