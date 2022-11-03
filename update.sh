@@ -3,6 +3,8 @@ mkdir backup
 mv $HOME/massa/massa-node/config/node_privkey.key $HOME/backup/node_privkey.key
 mv $HOME/massa/massa-client/wallet.dat $HOME/backup/wallet.dat
 systemctl stop massad
+systemctl disable massad
+rm /etc/systemd/system/massad.service
 rm -rf massa
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
@@ -17,6 +19,23 @@ echo "export passwd=\"${passwd}\"" >> $HOME/.bash_profile
 -rb
 mv $HOME/backup/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
 mv $HOME/backup/wallet.dat $HOME/massa/massa-client/wallet.dat 
+
+sudo tee <<EOF >/dev/null /etc/systemd/system/massad.service
+[Unit]
+Description=Massa Node
+After=network-online.target
+[Service]
+User=$USER
+WorkingDirectory=$HOME/massa/massa-node
+ExecStart=$HOME/massa/massa-node/massa-node -p "$passwd"
+Restart=on-failure
+RestartSec=3
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable massad
 sudo systemctl restart massad
 
 sleep 10
