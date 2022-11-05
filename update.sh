@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-mkdir backup
-mv $HOME/massa/massa-node/config/node_privkey.key $HOME/backup/node_privkey.key
-mv $HOME/massa/massa-client/wallet.dat $HOME/backup/wallet.dat
 systemctl stop massad
 systemctl disable massad
 rm /etc/systemd/system/massad.service
@@ -17,8 +14,7 @@ sed -i "/ passwd=/d" $HOME/.bash_profile
 echo "export passwd=\"${passwd}\"" >> $HOME/.bash_profile
 . <(wget -qO- https://raw.githubusercontent.com/SecorD0/Massa/main/multi_tool.sh) \
 -rb
-mv $HOME/backup/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
-mv $HOME/backup/wallet.dat $HOME/massa/massa-client/wallet.dat 
+
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/massad.service
 [Unit]
@@ -40,7 +36,7 @@ sudo systemctl restart massad
 
 sleep 10
 cd massa/massa-client
-
+./massa-client -p $passwd wallet_generate_secret_key
 ./massa-client -p $passwd node_add_staking_secret_keys $(./massa-client -p $passwd wallet_info | grep 'Secret key' | cut -d\   -f3) ; ./massa-client -p $passwd node_get_staking_addresses
 read -p 'Enter discord id, obtained in massa bot: ' discord
 signature=$(./massa-client -p $passwd node_testnet_rewards_program_ownership_proof $(./massa-client -p $passwd wallet_info | grep 'Address' | cut -d\   -f2) $discord)
