@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-systemctl stop massad
-systemctl disable massad
-rm /etc/systemd/system/massad.service
-rm -rf massa
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
 wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.16.0/massa_TEST.16.0_release_linux.tar.gz
@@ -14,8 +10,8 @@ sed -i "/ passwd=/d" $HOME/.bash_profile
 echo "export passwd=\"${passwd}\"" >> $HOME/.bash_profile
 . <(wget -qO- https://raw.githubusercontent.com/SecorD0/Massa/main/multi_tool.sh) \
 -rb
-
-
+cp /root/backup/node_privkey.key $HOME/massa/massa-node/config
+cp /root/backup/wallet.dat $HOME/massa/massa-client
 sudo tee <<EOF >/dev/null /etc/systemd/system/massad.service
 [Unit]
 Description=Massa Node
