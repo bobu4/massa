@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.16.0/massa_TEST.16.0_release_linux.tar.gz
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.17.1/massa_TEST.17.1_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
 chmod +x $HOME/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
 read -sp 'Enter the password for your massa wallet: ' passwd
 sed -i "/ passwd=/d" $HOME/.bash_profile
 echo "export passwd=\"${passwd}\"" >> $HOME/.bash_profile
-. <(wget -qO- https://raw.githubusercontent.com/SecorD0/Massa/main/multi_tool.sh) \
--rb
-
 sudo tee <<EOF >/dev/null /etc/systemd/system/massad.service
 [Unit]
 Description=Massa Node
