@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
+rm -rf backup
 mkdir backup
 cp $HOME/massa/massa-node/config/node_privkey.key /root/backup/node_privkey.key
 cp $HOME/massa/massa-client/wallet.dat /root/backup/wallet.dat
