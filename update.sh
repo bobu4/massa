@@ -22,5 +22,3 @@ sudo systemctl restart massad
 sleep 10
 cd massa/massa-client
 ./massa-client -p $passwd node_get_staking_addresses
-read -p 'Enter discord id, obtained in massa bot: ' discord
-#./massa-client -p $passwd buy_rolls $(./massa-client -p $passwd wallet_info | grep 'Address' | cut -d\   -f2) 1 0
