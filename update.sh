@@ -7,7 +7,7 @@ cp $HOME/massa/massa-node/config/node_privkey.key /root/backup/node_privkey.key
 cp $HOME/massa/massa-client/wallet.dat /root/backup/wallet.dat
 systemctl stop massad
 rm -rf massa
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.17.2/massa_TEST.17.2_release_linux.tar.gz
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.18.0/massa_TEST.18.0_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
 chmod +x $HOME/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
