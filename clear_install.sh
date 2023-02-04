@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.17.1/massa_TEST.17.1_release_linux.tar.gz
+cd /mnt/data
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.19.1/massa_TEST.19.1_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
-chmod +x $HOME/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
+chmod +x /mnt/data/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
 read -sp 'Enter the password for your massa wallet: ' passwd
 sed -i "/ passwd=/d" $HOME/.bash_profile
 echo "export passwd=\"${passwd}\"" >> $HOME/.bash_profile
@@ -15,8 +16,8 @@ After=network-online.target
 
 [Service]
 User=$USER
-WorkingDirectory=$HOME/massa/massa-node
-ExecStart=$HOME/massa/massa-node/massa-node -p "$passwd"
+WorkingDirectory=/mnt/data/massa/massa-node
+ExecStart=/mnt/data/massa/massa-node/massa-node -p "$passwd"
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=65535
