@@ -4,7 +4,7 @@ sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
 wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.19.1/massa_TEST.19.1_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
-chmod +x $HOME/massa/massa-node/massa-node /mnt/data/massa/massa-client/massa-client
+chmod +x $HOME/massa/massa-node/massa-node $HOME/massa/massa-client/massa-client
 read -sp 'Enter the password for your massa wallet: ' passwd
 sed -i "/ passwd=/d" $HOME/.bash_profile
 echo "export passwd=\"${passwd}\"" >> $HOME/.bash_profile
