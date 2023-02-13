@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-path=$HOME
+read -sp 'Enter path to install massa: ' path
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
 wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.19.3/massa_TEST.19.3_release_linux.tar.gz
