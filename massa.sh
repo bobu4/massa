@@ -63,7 +63,7 @@ sleep 10
 cd
 #echo $signature
 }
-read -s 'Enter path to install massa: ' path
+read -p 'Enter path to install massa: ' path
 read -p 'Enter 1 for clear install with backup or 2 to update: ' choice
 if [ $choice -eq "1" ]; then
 install
