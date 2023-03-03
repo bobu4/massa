@@ -2,7 +2,7 @@
 function install {
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
-cd path
+cd $path
 wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.20.0/massa_TEST.20.0_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
@@ -30,6 +30,7 @@ sudo systemctl restart massad
 cd massa/massa-client
 sleep 10
 ./massa-client -p $passwd wallet_generate_secret_key
+./massa-client -p $passwd node_bootstrap_whitelist allow-all
 ./massa-client -p $passwd node_start_staking $(./massa-client -p $passwd wallet_info | grep 'Address' | cut -d\   -f2) ; ./massa-client -p $passwd node_get_staking_addresses
 read -p 'Enter discord id, obtained in massa bot: ' discord
 signature=$(./massa-client -p $passwd node_testnet_rewards_program_ownership_proof $(./massa-client -p $passwd wallet_info | grep 'Address' | cut -d\   -f2) $discord)
