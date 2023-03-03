@@ -16,9 +16,9 @@ Description=Massa Node
 After=network-online.target
 [Service]
 User=$USER
-WorkingDirectory=$HOME/massa/massa-node
-ExecStart=$HOME/massa/massa-node/massa-node
-Restart=always
+WorkingDirectory=$path/massa/massa-node
+ExecStart=$path/massa/massa-node/massa-node -p "$passwd"
+Restart=on-failure
 RestartSec=3
 LimitNOFILE=65535
 [Install]
