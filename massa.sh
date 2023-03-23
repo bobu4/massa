@@ -3,7 +3,7 @@ function install {
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
 cd $path
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.20.1/massa_TEST.20.1_release_linux.tar.gz
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.20.2/massa_TEST.20.2_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
 chmod +x $path/massa/massa-node/massa-node $path/massa/massa-client/massa-client
@@ -46,7 +46,7 @@ mkdir backup
 cp $path/massa/massa-node/config/node_privkey.key $path/backup/node_privkey.key
 cp $path/massa/massa-client/wallet.dat $path/backup/wallet.dat
 rm -rf massa
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.20.1/massa_TEST.20.1_release_linux.tar.gz
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.20.2/massa_TEST.20.2_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
 chmod +x $path/massa/massa-node/massa-node $path/massa/massa-client/massa-client
