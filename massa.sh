@@ -3,7 +3,7 @@ function install {
 sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
 cd $path
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.22.2/massa_TEST.22.2_release_linux.tar.gz
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.23.0/massa_TEST.23.0_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
 chmod +x $path/massa/massa-node/massa-node $path/massa/massa-client/massa-client
@@ -46,7 +46,7 @@ mkdir backup
 cp $path/massa/massa-node/config/node_privkey.key $path/backup/node_privkey.key
 cp $path/massa/massa-client/wallet.dat $path/backup/wallet.dat
 rm -rf massa
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.22.2/massa_TEST.22.2_release_linux.tar.gz
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.23.0/massa_TEST.23.0_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
 chmod +x $path/massa/massa-node/massa-node $path/massa/massa-client/massa-client
@@ -65,7 +65,7 @@ signature=$(./massa-client -p $passwd node_testnet_rewards_program_ownership_pro
 echo $signature
 }
 read -p 'Enter path to install massa: ' path
-read -p 'Enter 1 for clear install with backup or 2 to update: ' choice
+read -p 'Enter 1 for clear install or 2 to update: ' choice
 if [ $choice -eq "1" ]; then
 install
 elif [ $choice -eq "2" ]; then
