@@ -3,26 +3,37 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install wget jq unzip git build-essential pkg-config libssl-dev -y
 rm -rf backup
 mkdir backup
-cp /mnt/data/massa/massa-node/config/node_privkey.key /mnt/data/backup/node_privkey.key
-cp /mnt/data/massa/massa-client/wallet.dat /mnt/data/backup/wallet.dat
-systemctl stop massad
+cp /root/massa/massa-node/config/node_privkey.key /root/backup/node_privkey.key
+cp /root/massa/massa-client/wallets/wallet_AU12UkG6j7QHS6VviWB4jikGVB7tBpxNRxv6RFyKDfNeVbH7Cn5as.yaml /root/backup/wallet_AU12UkG6j7QHS6VviWB4jikGVB7tBpxNRxv6RFyKDfNeVbH7Cn5as.yaml
 rm -rf massa
-wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/TEST.19.3/massa_TEST.19.3_release_linux.tar.gz
+wget -qO massa.tar.gz https://github.com/massalabs/massa/releases/download/MAIN.2.1/massa_MAIN.2.1_release_linux.tar.gz
 tar -xzvf massa.tar.gz
 rm -rf massa.tar.gz
-chmod +x /mnt/data/massa/massa-node/massa-node /mnt/data/massa/massa-client/massa-client
+chmod +x /root/massa/massa-node/massa-node /root/massa/massa-client/massa-client
 read -sp 'Enter the password for your massa wallet: ' passwd
 sed -i "/ passwd=/d" $HOME/.bash_profile
 echo "export passwd=\"${passwd}\"" >> $HOME/.bash_profile
-cp /mnt/data/backup/node_privkey.key /mnt/data/massa/massa-node/config/node_privkey.key
-cp /mnt/data/backup/wallet.dat /mnt/data/massa/massa-client/wallet.dat
+cp /root/backup/node_privkey.key /root/massa/massa-node/config/node_privkey.key
+cp /root/backup/wallet_AU12UkG6j7QHS6VviWB4jikGVB7tBpxNRxv6RFyKDfNeVbH7Cn5as.yaml /root/massa/massa-client/wallets/wallet_AU12UkG6j7QHS6VviWB4jikGVB7tBpxNRxv6RFyKDfNeVbH7Cn5as.yaml
+sudo tee <<EOF >/dev/null /etc/systemd/system/massad.service
+[Unit]
+Description=Massa Node
+After=network-online.target
+
+[Service]
+User=$USER
+WorkingDirectory=$path/massa/massa-node
+ExecStart=$path/massa/massa-node/massa-node -p "$passwd"
+Restart=on-failure
+RestartSec=3
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
+EOF
 sudo systemctl daemon-reload
 sudo systemctl enable massad
 sudo systemctl restart massad
 sleep 10
 cd massa/massa-client
 ./massa-client -p $passwd node_start_staking $(./massa-client -p $passwd wallet_info | grep 'Address' | cut -d\   -f2) ; ./massa-client -p $passwd node_get_staking_addresses
-read -p 'Enter discord id, obtained in massa bot: ' discord
-signature=$(./massa-client -p $passwd node_testnet_rewards_program_ownership_proof $(./massa-client -p $passwd wallet_info | grep 'Address' | cut -d\   -f2) $discord)
-./massa-client -p $passwd buy_rolls $(./massa-client -p $passwd wallet_info | grep 'Address' | cut -d\   -f2) 1 0
-echo $signature
