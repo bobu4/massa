@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+cd massa/massa-client
+wallets=$(./massa-client -p $passwd wallet_info -j | jq -r '.[].address_info.address')
+receiver=AU12UkG6j7QHS6VviWB4jikGVB7tBpxNRxv6RFyKDfNeVbH7Cn5as
+for wal in ${wallets[*]}
+  do
+  wallet_info=$(./massa-client -p $passwd get_addresses $wal -j | jq -r '.[].final_balance')
+  if [ $(echo "$wallet_info > 2" | bc) -ne 0 ]
+  then
+  # echo -e "$wal $wallet_info\n"
+  int_balance = $(echo ${wallet_info%%.*})
+  echo -e "$wal $(($int_balance - 1))\n"
+  ./massa-client -p $passwd send_transaction $wal $receiver $(($int_balance - 1)) 0.000001
+  fi
+done
